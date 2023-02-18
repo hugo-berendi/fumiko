@@ -20,14 +20,18 @@ class Tasks(commands.Cog):
             discord.Status.online
         ]
 
-        members: int
+        members = []
         for guild in self.bot.guilds:
-            members = members + guild.member_count
+            members.append(guild.member_count)
+        
+        all_member_count = 0
+        for member_count in members:
+            all_member_count = all_member_count + member_count
 
         activities = [
             discord.Game("by Kamachi"),
             discord.Game(f"mit {len(self.bot.guilds)} servern"),
-            discord.Game(f"mit {len(members)} usern")
+            discord.Game(f"mit {all_member_count} usern")
         ]
 
         await self.bot.change_presence(status=random.choice(stati),

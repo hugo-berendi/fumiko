@@ -7,9 +7,9 @@ async def connect_nodes(bot: discord.Bot):
 
     await wavelink.NodePool.create_node(
         bot=bot,
-        host='my.tofumc.pro',
-        port=25570,
-        password='sussy'
+        host='147.139.135.8',
+        port=6969,
+        password='youshallnotpass'
     )
 
 class Events(commands.Cog):

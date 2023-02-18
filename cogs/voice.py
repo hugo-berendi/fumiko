@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import pycord.wavelink as wavelink
 import builder.queueBuilder as queue
+import asyncio
 
 class Voice(commands.Cog):
     def __init__(self, bot: discord.AutoShardedBot):
@@ -250,6 +251,35 @@ class Voice(commands.Cog):
         
         
         await ctx.respond(embed=emb)
+
+    @commands.slash_command(name='loop', description='This command loops the current song.')
+    async def loop(self, ctx: discord.ApplicationContext, search: str):
+        vc = ctx.voice_client
+
+        if not vc:
+            vc = await ctx.author.voice.channel.connect(cls=wavelink.Player)
+
+        if ctx.author.voice.channel.id != vc.channel.id:
+            return await ctx.respond('You must be in the same voice channel as the bot!')
+        
+        song = await wavelink.YouTubeTrack.search(query=search, return_first=True)
+
+        if not song:
+            return await ctx.respond('no song found!')
+        
+        emb = discord.Embed(
+            title=f'Now playing `{song.title}` on loop!',
+            url=song.info["uri"],
+            color=discord.Colour.red()
+        )
+        
+        emb.add_field(name="Creator", value=song.info["author"], inline=True)
+        emb.add_field(name="Duration", value=f'~{round(int(song.info["length"])/60000)}min', inline=True)
+
+        while True:
+            if not vc.is_playing():
+                await vc.play(song)
+            await asyncio.sleep(song.duration//1000)
 
 def setup(bot):
     bot.add_cog(Voice(bot))

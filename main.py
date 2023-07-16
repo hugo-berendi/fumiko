@@ -7,7 +7,7 @@ from web import create_web
 from utils.cogs import load_cogs
 
 # set dev dir
-os.chdir('/home/kamachi/Development/fumiko')
+os.chdir('/root/dev/fumiko')
 
 # env vars
 env = dotenv.dotenv_values(f'{os.getcwd()}/.env')
@@ -28,13 +28,13 @@ load_cogs(bot, cog_dir)
 
 
 # Threads
-web = open('/home/kamachi/Development/fumiko/web/app.py').read()
+web = open('/root/dev/fumiko/web/app.py').read()
 threads = [Thread(target=bot.run, args=(token,)), Thread(target=exec, args=(web,))]
 
 
 # main function
 def main():
-    exec(open('/home/kamachi/Development/fumiko/web/create_web.py').read())
+    exec(open('/root/dev/fumiko/web/create_web.py').read())
     for thread in threads:
         thread.start()
 

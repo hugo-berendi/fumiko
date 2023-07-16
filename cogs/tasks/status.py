@@ -28,7 +28,7 @@ class Status(commands.Cog):
 
         # create activity list for bot activity
         activity_list = [
-            discord.Game("by Kamachi#0001"),
+            discord.Game("by @hugo.berendi"),
             discord.Game(f"with {len(self.bot.guilds)} servers"),
             discord.Game(f"with {members} users")
         ]

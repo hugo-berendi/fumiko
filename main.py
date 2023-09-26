@@ -26,22 +26,6 @@ bot = discord.Bot(
 cog_dir = f'{os.getcwd()}/cogs/'
 load_cogs(bot, cog_dir)
 
-
-# Threads
-web = open('/root/dev/fumiko/web/app.py').read()
-threads = [Thread(target=bot.run, args=(token,)), Thread(target=exec, args=(web,))]
-
-
-# main function
-def main():
-    exec(open('/root/dev/fumiko/web/create_web.py').read())
-    for thread in threads:
-        thread.start()
-
-    for thread in threads:
-        thread.join()
-
-
 # run if __name__ is equal to '__main__'
 if __name__ == '__main__':
-    main()
+    bot.run(token)

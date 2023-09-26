@@ -23,6 +23,10 @@ class NSFW(commands.Cog):
             ctx: ApplicationContext,
     ):
         await ctx.defer()
+        emb = build_embed('ERROR', 'Reddit API Costs')
+        emb.description = 'Due to changes in Reddit Agbs the Api for this command costs to much for us and have to disable this command. :('
+        await ctx.respond(embeds=[emb])
+        /*
         async with asyncpraw.Reddit(
                 client_id='Zs_FRxeC1Synq6a_XElsNQ',
                 client_secret=env['REDDIT_SECRET'],
@@ -80,6 +84,7 @@ class NSFW(commands.Cog):
             emb.set_footer(text=f'from r/{random_post["subreddit"]}', icon_url='')
 
             await ctx.respond(embeds=[emb])
+        */
 
     @nsfw_commands.command(description="Hentai image with custom type", name="hentai")
     @commands.is_nsfw()
